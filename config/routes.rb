@@ -1,3 +1,6 @@
+# config/routes.rb
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  post '/api/user/host', to: 'users#host'
+  post '/api/user/invite', to: 'users#invite'
+  put '/api/user/update', to: 'users#update'
 end
