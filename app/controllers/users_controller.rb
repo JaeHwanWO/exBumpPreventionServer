@@ -45,20 +45,14 @@ class UsersController < ApplicationController
     @user.longitude = params[:longitude]
     @user.save
 
-    # 다른 유저 찾기
-    @otherUser = User.where.not(myUUID: @user.myUUID).where(randomCode: @user.randomCode)[0]
-    json_response(@otherUser, :created)
+    json_response("success")
   end
 
   # POST api/user/receiveGPS
   def receiveGPS
-    @user = User.find_by(myUUID: params[:myUUID])
-    @user.latitude = params[:latitude]
-    @user.longitude = params[:longitude]
-    @user.save
-
+    @me = User.find_by(myUUID: params[:myUUID])
     # 다른 유저 찾기
-    @otherUser = User.where.not(myUUID: @user.myUUID).where(randomCode: @user.randomCode)[0]
+    @otherUser = User.find_by(myUUID: @me.partnerUUID)
     json_response(@otherUser, :created)
   end
 
